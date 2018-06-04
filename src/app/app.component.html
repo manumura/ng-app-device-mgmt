@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <mat-sidenav-container #sidenav class="sidenav-container">
+    <mat-sidenav mode="over" #sidenav class="sidenav-content">
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+    <mat-toolbar class="sidenav-toolbar">
+      <span>
+          <button class="sidenav-toggle" (click)="sidenav.open()">
+              <i class="material-icons toolbar-link-icon sidenav-toggle-icon">menu</i>
+          </button>
+      </span>
+      <span>
+   	  	<a routerLink="home" routerLinkActive="active">Applications and Devices Management</a>
+   	  </span>
+    </mat-toolbar>
+    <div class="inner-sidenav-content">
+      <div class="inner-sidenav-content-body">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-container>
+</div>

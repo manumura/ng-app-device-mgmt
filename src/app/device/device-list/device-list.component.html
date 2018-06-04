@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section class="main">
+        <div class="data-container mat-elevation-z8">
+          <p-growl [(value)]="alertMessages"></p-growl>
+          <app-alert></app-alert>
+          <div class="data-header">
+            <mat-form-field>
+              <input matInput (keyup)="executeFilter($event.target.value)" placeholder="Filter device">
+            </mat-form-field>
+          </div>
+          <mat-table #table [dataSource]="dataSource" matSort matSortActive="timestamp" matSortDirection="asc">
+            <ng-container matColumnDef="timestamp">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Timestamp</mat-header-cell>
+              <mat-cell *matCellDef="let device"> {{device.timestamp | date: "yyyy-MM-dd hh:mm:ss"}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="imei">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> IMEI</mat-header-cell>
+              <mat-cell *matCellDef="let device"> {{device.imei}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
+              <mat-cell *matCellDef="let device"> {{device.statusText}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="requestBy">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Request by</mat-header-cell>
+              <mat-cell *matCellDef="let device"> {{device.requestBy}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+              <mat-cell *matCellDef="let device">
+                <button mat-icon-button color="accent" (click)="openEditDialog(device.id)" matTooltip="Edit device">
+                  <mat-icon aria-label="Edit">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="openDeleteDialog(device.id, device.imei)"
+                        *ngIf="device.id" matTooltip="Delete device">
+                  <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <div class="section">
+            <mat-paginator #paginator
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 20]">
+            </mat-paginator>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

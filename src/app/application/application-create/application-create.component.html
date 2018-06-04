@@ -1,0 +1,138 @@
+<div class="container">
+	<h3 mat-dialog-title>{{ title }}</h3>
+	
+<!-- 	<p-growl [(value)]="alertMessages"></p-growl> -->
+	<p-messages [(value)]="alertMessages"></p-messages>
+
+	<form class="mat-dialog-content" novalidate [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+
+		<div class="form">
+			<mat-form-field>
+			  	<mat-select placeholder="Channel" [formControlName]="'channel'" [compareWith]="compareChannelByIds">
+				  	<mat-option [value]="null" disabled>Choose channel</mat-option>
+				    <mat-option *ngFor="let channel of channels" [value]="channel">
+		                 {{ channel?.name }}
+				    </mat-option>
+			  	</mat-select>
+			  	<mat-error *ngIf="!applicationForm.controls['channel'].valid && applicationForm.get('channel').touched">
+    				Please choose a channel.
+    			</mat-error>
+			</mat-form-field>
+		</div>
+
+		<div class="form">
+			<mat-form-field>
+			  	<mat-select placeholder="Device type" formControlName="deviceType" [compareWith]="compareDeviceTypeByIds">
+				  	<mat-option [value]="null" disabled>Choose device type</mat-option>
+				    <mat-option *ngFor="let deviceType of deviceTypes" [value]="deviceType">
+		                 {{ deviceType?.name }}
+				    </mat-option>
+			  	</mat-select>
+			  	<mat-error *ngIf="applicationForm.controls['deviceType'].errors?.required && applicationForm.get('deviceType').touched">
+    				Please choose a device type.
+    			</mat-error>
+			</mat-form-field>
+		</div>
+
+		<div class="form">
+			<mat-form-field color="accent"> 
+				<input type="text" matInput #input class="form-control" placeholder="Application" 
+					formControlName="name" name="name">
+				<mat-error *ngIf="applicationForm.controls['name'].errors?.required && applicationForm.get('name').touched">
+	    			Application name is required.
+	    		</mat-error>
+			</mat-form-field>
+		</div>
+
+		<div class="form">
+			<label>APK</label>
+			<p-fileUpload #fileUpload auto="auto" name="apkFile[]" 
+				customUpload="true" (uploadHandler)="uploadHandler($event)"
+				accept="image/*" maxFileSize="1000000"
+				chooseLabel="Choose APK file" showUploadButton="false"
+				withCredentials="true" [files]="apkFiles">
+<!-- 				formControlName="apkFile"  -->
+<!-- 				<ng-template pTemplate="toolbar"> -->
+<!-- 		            <div>Upload toolbar text</div> -->
+<!-- 		        </ng-template>   -->
+<!-- 		        <ng-template let-file pTemplate="file"> -->
+<!-- 		            <div>Custom UI to display a file</div> -->
+<!-- 		        </ng-template>  -->
+			    <ng-template pTemplate="content">
+			   		<div *ngIf="application.apkName && !uploadedFiles.length">
+                        <div class="ui-fileupload-row" *ngFor="let file of apkFiles; let i = index;">
+<!--                             <div><img [src]="file.objectURL" *ngIf="fileUpload.isImage(file)" [width]="fileUpload.previewWidth" /></div> -->
+                            <div>{{ file.name }}</div>
+                            <div>{{ fileUpload.formatSize(file.size) }}</div>
+<!--                             <div><button type="button" icon="fa-close" pButton (click)="fileUpload.remove($event,i)"></button></div> -->
+                        </div>
+                    </div>
+			    </ng-template>
+<!-- accept="image/*" ".csv,.txt" -->
+			</p-fileUpload>
+		</div>
+		
+		<br/>
+		
+		<div class="form">
+			<label>Linked applications</label>
+			
+<!-- 			<div class="data-header"> -->
+<!-- 			    <mat-form-field> -->
+<!-- 					<input matInput #filter placeholder="Linked applications (type text to filter...)"> -->
+<!-- 			    </mat-form-field> -->
+<!-- 		  	</div> -->
+			
+			<mat-table #table [dataSource]="datasource" matSort class="data-table">
+			
+				<!-- Checkbox Column -->
+			    <ng-container matColumnDef="select">
+			      <mat-header-cell *matHeaderCellDef>
+			      </mat-header-cell>
+			      <mat-cell *matCellDef="let application; let i=index;">
+			        <mat-checkbox (click)="$event.stopPropagation()"
+			                      (change)="$event ? select(application) : null"
+			                      [checked]="isChecked(application)">
+			        </mat-checkbox>
+			        <!-- 			  [ngModel]="isChecked(application)" -->
+					<!-- 			  [ngModelOptions]="{standalone: true}" -->
+			      </mat-cell>
+			    </ng-container>
+	      	
+			    <ng-container matColumnDef="deviceType">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Device type </mat-header-cell>
+			      <mat-cell *matCellDef="let application" class="data-cell"> {{application.deviceType.name}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="application">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Application </mat-header-cell>
+			      <mat-cell *matCellDef="let application" class="data-cell"> {{application.name}} </mat-cell>
+			    </ng-container>
+			    
+			    <mat-header-row *matHeaderRowDef="displayedColumns" class="data-header-row"></mat-header-row>
+	    		<mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></mat-row>
+	      	</mat-table>
+	      	
+	      	<div class="no-results" [style.display]="datasource.renderedData.length == 0 ? '' : 'none'">
+			    No results
+			</div>
+	      	
+	      	<mat-paginator #paginator
+	      	     [length]="datasource.filteredData.length"
+	      		 [pageIndex]="0"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[1, 2, 5]">
+ 			 </mat-paginator>
+		</div>
+	</form>
+	
+	<div mat-dialog-actions>
+      	<!-- <button mat-button type="submit" [disabled]="!applicationForm.valid" (click)="onSubmit()">Save</button> -->
+      	<button mat-button type="submit" [disabled]="!applicationForm.valid">Save</button>
+      	<button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+<!--     <div> -->
+<!--     	<img [src]="imageUrl" /> -->
+<!--     	<button type="button" class="btn btn-warn" (click)="test()">Test</button> -->
+<!--     </div> -->
+</div>

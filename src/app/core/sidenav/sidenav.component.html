@@ -1,0 +1,20 @@
+<mat-nav-list>
+  <mat-list-item (click)="closeNav()" [routerLink]="['device']">
+    <a matLine>Devices</a>
+    <mat-icon mat-list-icon>phone_android</mat-icon>
+    <span mat-line class="secondary-text">Go to Devices management</span>
+  </mat-list-item>
+  <mat-list-item (click)="closeNav()" [routerLink]="['application']">
+    <a matLine>Applications</a>
+    <mat-icon mat-list-icon>android</mat-icon>
+    <span mat-line class="secondary-text"> Go to Applications management </span>
+  </mat-list-item>
+  <div *ngIf="isLogged | async as isLogged">
+    <mat-divider></mat-divider>
+    <mat-list-item (click)="closeNav()" [routerLink]="['login']" [queryParams]="{lq: 'logout'}" *ngIf="isLogged">
+      <a matLine>Logout</a>
+      <mat-icon mat-list-icon>exit_to_app</mat-icon>
+      <span mat-line class="secondary-text"> Log out of the application </span>
+    </mat-list-item>
+  </div>
+</mat-nav-list>

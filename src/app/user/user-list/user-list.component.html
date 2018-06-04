@@ -1,0 +1,207 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+<!--             <div class="col-md-4"> -->
+			<div class="col-md-12">
+              <h3>Users</h3>
+            </div>
+<!--             <div class="col-md-6"> -->
+
+<!--             </div> -->
+<!--             <div class="col-md-2"> -->
+<!--               	<button type="button" class="btn btn-primary" (click)="redirectNewUserPage()">New User</button> -->
+<!--            		<button type="button" class="btn btn-warn" (click)="test()">Test</button> -->
+<!--             </div> -->
+          </div>
+
+        </header>
+      </section>
+      
+      <section>
+      	<!-- 		<input [(ngModel)]="searchText" placeholder="search text goes here"> -->
+      </section>
+
+      <section class="main">
+      	<div class="data-container mat-elevation-z8">
+      	
+      		<app-alert></app-alert>
+      	
+      		<div class="data-header">
+			    <mat-form-field>
+					<input matInput #filter placeholder="Filter users">
+			    </mat-form-field>
+		  	</div>
+		  	
+	      	<mat-table #table [dataSource]="userDatasource" matSort class="data-table">
+	      	
+	      		<!-- Checkbox Column -->
+			    <ng-container matColumnDef="select">
+			      <mat-header-cell *matHeaderCellDef>
+					<mat-checkbox (change)="$event ? masterToggle() : null"
+                      [disabled]="!userDatasource.filteredData.length"
+                      [checked]="isMasterToggleChecked()"
+                      [indeterminate]="isMasterToggleIndeterminate()">
+		        	</mat-checkbox>
+			      </mat-header-cell>
+			      <mat-cell *matCellDef="let row">
+			        <mat-checkbox (click)="$event.stopPropagation()"
+			                      (change)="$event ? selection.toggle(row) : null"
+			                      [checked]="selection.isSelected(row)">
+			        </mat-checkbox>
+			      </mat-cell>
+			    </ng-container>
+			    
+	      		<ng-container matColumnDef="id">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> # </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.id}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="firstName">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> First name </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.firstName}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="lastName">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Last Name </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.lastName}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="email">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Email </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.email}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="birthDate">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Birthdate </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.birthDate | date: 'dd/MM/yyyy'}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="salary">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Salary </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.salary}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="country">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Country </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.country?.name}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="city">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> City </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.city?.name}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="married">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Is married ? </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.married}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="gender">
+			      <mat-header-cell *matHeaderCellDef mat-sort-header class="data-header-cell"> Gender </mat-header-cell>
+			      <mat-cell *matCellDef="let user" class="data-cell"> {{user.gender}} </mat-cell>
+			    </ng-container>
+			    
+			    <ng-container matColumnDef="actions">
+			    	<mat-header-cell *matHeaderCellDef class="data-header-cell"> 
+			    		<button mat-icon-button color="primary" matTooltip="Create new user" 
+			    			(click)="createUser()">
+				          	<mat-icon aria-label="Add">add</mat-icon>
+				        </button>
+			    	</mat-header-cell>
+			    	
+				    <mat-cell *matCellDef="let user; let i=index;" class="data-cell">
+				    	<div class="actions-container">
+			         		<button mat-icon-button color="accent" matTooltip="Edit user" 
+			         			(click)="editUser(user)">
+			         			<mat-icon aria-label="Edit">edit</mat-icon>
+			         		</button>
+			         		
+	              			<button mat-icon-button color="accent" matTooltip="Delete user"
+	              				(click)="deleteUser(user)">
+	              				<mat-icon aria-label="Delete">delete</mat-icon>
+	              			</button>
+	              		</div>
+				    </mat-cell>
+				</ng-container> 
+			    
+			    <mat-header-row *matHeaderRowDef="displayedColumns" class="data-header-row"></mat-header-row>
+	    		<mat-row *matRowDef="let user; columns: displayedColumns;" class="data-row"
+	    			[ngClass]="{ 'selected': selection.isSelected(user) }">
+<!-- < 	    			(click)="select(user);" -->
+	    		</mat-row>
+	    
+	      	</mat-table>
+	      	
+	      	<div class="no-results" [style.display]="userDatasource.renderedData.length == 0 ? '' : 'none'">
+			    No results
+			</div>
+	      	
+	      	<mat-paginator #paginator
+	      	     [length]="userDatasource.filteredData.length"
+	      		 [pageIndex]="0"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 20]">
+ 			 </mat-paginator>
+      	</div>
+      	
+<!--         <table class="table"> -->
+<!--           <thead> -->
+<!--           <tr> -->
+<!--             <th>#</th> -->
+<!--             <th> -->
+<!--             	First Name  -->
+<!--             	<br/> -->
+<!--             	<input (keyup)="searchTerm$.next($event.target.value)"> -->
+<!--             </th> -->
+<!--             <th>Last Name</th> -->
+<!--             <th>Email</th> -->
+<!--             <th>Birthdate</th> -->
+<!--             <th>Salary</th> -->
+<!--             <th>Country</th> -->
+<!--             <th>City</th> -->
+<!--             <th>Is married ?</th> -->
+<!--             <th>Gender</th> -->
+<!--             <th></th> -->
+<!--           </tr> -->
+<!--           </thead> -->
+<!--           <tbody *ngIf="users?.length"> -->
+<!--           <tr *ngFor="let user of users | slice:0:9 "> -->
+<!--            TODO let user of usersObservable | async | filter : searchText -->
+<!--             <th scope="row">{{user.id}}</th> -->
+<!--             <td>{{user.firstName}}</td> -->
+<!--             <td>{{user.lastName}}</td> -->
+<!--             <td>{{user.email}}</td> -->
+<!--             <td>{{user.birthDate | date: 'dd/MM/yyyy'}}</td> -->
+<!--             <td>{{user.salary}}</td> -->
+<!--             <td>{{user.country ? user.country.name : null}}</td> -->
+<!--             <td>{{user.city ? user.city.name : null}}</td> -->
+<!--             <td>{{user.married}}</td> -->
+<!--             <td>{{user.gender}}</td> -->
+<!--             <td> -->
+<!--               <button type="button" class="btn btn-success" (click)="editUserPage(user)">Edit</button> -->
+<!--               <button type="button" class="btn btn-danger" (click)="deleteUser(user)">Delete</button> -->
+<!--             </td> -->
+<!--           </tr> -->
+
+<!--           </tbody> -->
+<!--         </table> -->
+      </section>
+      
+      <br/>
+      
+      <section>
+		  <div class="col-md-12">
+<!-- 			<button type="button" class="btn btn-primary" (click)="createUser()">New User</button> -->
+	    	<button type="button" class="btn btn-warn" (click)="test()">Test</button>
+	      </div>
+      </section>
+      
+<!--       <div *ngIf="!users?.length"> -->
+<!--     	 No data found... -->
+<!-- 	  </div> -->
+    </div>
+  </div>
+</div>

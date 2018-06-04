@@ -1,0 +1,14 @@
+<div>
+	<h2 mat-dialog-title>{{title}}</h2>
+	<hr>
+	<mat-dialog-content>
+		<ul>
+			<li *ngFor="let message of messages">
+				<strong>{{message}}</strong>
+			</li>
+		</ul>
+	 </mat-dialog-content>
+	<mat-dialog-actions align="center">
+		<button mat-raised-button (click)="dialogRef.close()">OK</button>
+	</mat-dialog-actions>
+</div>

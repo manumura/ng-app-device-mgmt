@@ -1,0 +1,87 @@
+/*.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.table-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+  font-size: 18px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.section {
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px;
+}*/
+
+/* Structure */
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.data-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+/*
+ * Styles to make the demo's cdk-table match the material design spec
+ * https://material.io/guidelines/components/data-tables.html
+ */
+.data-table {
+  flex: 1 1 auto;
+  overflow: auto;
+  max-height: 500px;
+}
+
+.data-header-row, .data-row {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+}
+
+.data-cell, .data-header-cell {
+  flex: 1;
+}
+
+.data-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.actions-container {
+	display: flex;
+/* 	align-items: left; */
+/* 	justify-content: left; */
+}
+
+.selected {
+	background: #dddddd;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  padding: 14px;
+  font-size: 14px;
+  font-style: italic;
+}

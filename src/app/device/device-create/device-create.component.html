@@ -1,0 +1,86 @@
+<div>
+  <h4 mat-dialog-title>{{device.id ? 'Edit' : 'Add'}}</h4>
+  <form #deviceForm="ngForm" class="edit-form">
+    <mat-dialog-content>
+      <p matLine>
+        <mat-card>
+          <mat-card-content>
+              <mat-list dense>
+                <h2 mat-subheader>Device info</h2>
+                <mat-list-item>
+                  <h4 mat-line> Model: </h4>
+                  <p mat-line> {{device.deviceInfo?.model}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Manufacturer: </h4>
+                  <p mat-line> {{device.deviceInfo?.manufacturer}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Brand: </h4>
+                  <p mat-line> {{device.deviceInfo?.brand}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Android version: </h4>
+                  <p mat-line> {{device.deviceInfo?.androidVersion}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> API level: </h4>
+                  <p mat-line> {{device.deviceInfo?.apiLevel}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Build number: </h4>
+                  <p mat-line> {{device.deviceInfo?.apiLevel}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Android device ID: </h4>
+                  <p mat-line> {{device.deviceInfo?.apiLevel}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Hardware serial number: </h4>
+                  <p mat-line> {{device.deviceInfo?.hardwareSerialNo}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Instruction sets: </h4>
+                  <p mat-line> {{device.deviceInfo?.instructionSets}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> CPU hardware: </h4>
+                  <p mat-line> {{device.deviceInfo?.cpuHardware}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Display resolution: </h4>
+                  <p mat-line> {{device.deviceInfo?.displayResolution}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Display density: </h4>
+                  <p mat-line> {{device.deviceInfo?.displayDensity}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                  <h4 mat-line> Display physical size: </h4>
+                  <p mat-line> {{device.deviceInfo?.displayPhysicalSize}} </p>
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+        </mat-card>
+      </p>
+      <input type="hidden" name="id" [(ngModel)]="device.id">
+      <input type="hidden" name="timestamp" [(ngModel)]="device.timestamp">
+      <input type="hidden" name="imei" [(ngModel)]="device.imei">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Request by" [(ngModel)]="device.requestBy"
+        required name="requestBy" #requestBy disabled>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Status" [(ngModel)]="device.status" required name="status">
+          <mat-option *ngFor="let status of statuses" [value]="status.id">
+            {{status.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="true" color="primary" [disabled]="!deviceForm.valid" (click)="save(deviceForm.value)" type="submit">Save</button>
+      <button mat-button [mat-dialog-close]>Cancel</button>
+    </mat-dialog-actions>
+  </form>
+</div>

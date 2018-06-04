@@ -1,0 +1,4 @@
+[0326/194209.757:ERROR:exception_handler_server.cc(526)] ConnectNamedPipe: Le canal de communication est sur le point d’être fermé. (0xE8)
+[0326/194716.727:ERROR:exception_handler_server.cc(526)] ConnectNamedPipe: Le canal de communication est sur le point d’être fermé. (0xE8)
+[0326/223632.222:ERROR:exception_handler_server.cc(526)] ConnectNamedPipe: Le canal de communication est sur le point d’être fermé. (0xE8)
+[0326/224300.500:ERROR:exception_handler_server.cc(526)] ConnectNamedPipe: Le canal de communication est sur le point d’être fermé. (0xE8)
