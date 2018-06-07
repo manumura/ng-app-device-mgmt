@@ -8,6 +8,6 @@ import {Device} from '../model/device.model';
 export class DeviceService extends AbstractService<Device> {
   constructor(protected http: HttpClient,
               @Inject(APP_CONFIG) private conf: AppConfig) {
-    super(http, conf.appsApiEndpoint + '/dm/api/v1/devices');
+    super(http, conf.appsApiEndpoint + '/api/devices');
   }
 }

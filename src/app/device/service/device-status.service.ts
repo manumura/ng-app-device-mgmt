@@ -12,6 +12,6 @@ export class DeviceStatusService extends AbstractService<DeviceStatus> {
 
   constructor(protected http: HttpClient,
     @Inject(APP_CONFIG) private conf: AppConfig) {
-    super(http, conf.appsApiEndpoint + '/dm/api/v1/devices/statuses');
+    super(http, conf.appsApiEndpoint + '/api/devices/statuses');
   }
 }

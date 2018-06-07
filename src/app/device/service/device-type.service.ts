@@ -14,6 +14,6 @@ export class DeviceTypeService extends AbstractService<DeviceType> {
 
   constructor(protected http: HttpClient,
     @Inject(APP_CONFIG) private conf: AppConfig) {
-    super(http, conf.appsApiEndpoint + '/dm/api/v1/deviceTypes');
+    super(http, conf.appsApiEndpoint + '/api/deviceTypes');
   }
 }

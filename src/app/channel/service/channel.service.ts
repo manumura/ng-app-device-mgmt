@@ -13,6 +13,6 @@ export class ChannelService extends AbstractService<Channel> {
 
   constructor(protected http: HttpClient,
     @Inject(APP_CONFIG) private conf: AppConfig) {
-    super(http, conf.appsApiEndpoint + '/dm/api/v1/channels');
+    super(http, conf.appsApiEndpoint + '/api/channels');
   }
 }
