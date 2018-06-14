@@ -28,6 +28,7 @@ export abstract class AbstractService<T> {
     return this.http.get<T[]>(this.apiUrl)
       .pipe(map(
         res => {
+          console.log(res);
           return res;
         })
         // TODO : RxJS 6+ throwError
@@ -54,15 +55,19 @@ export abstract class AbstractService<T> {
 
   findById(id: number): Observable<T> {
     return this.http.get<T>(this.apiUrl + '/' + id)
-      .pipe(map(res => res), catchError(
-        (error: any) => throwError(this.errorHandler(error)
-        ))
+      .pipe(map(res => {
+          console.log(res);
+          return res;
+        }), catchError(
+        (error: any) => throwError(this.errorHandler(error))
+        )
       );
   }
 
   update(id: number, entity: T): Observable<T> {
     return this.http.put<T>(this.apiUrl + '/' + id, entity)
       .pipe(map(res => {
+        console.log(res);
         this.dialogData = res;
         return res;
       }), catchError(
@@ -78,12 +83,14 @@ export abstract class AbstractService<T> {
     } else {
       result = this.http.post<T>(this.apiUrl, entity);
     }
+    console.log(result);
     return result;
   }
 
   save(entity: T): Observable<T> {
     return this.http.post<T>(this.apiUrl, entity)
       .pipe(map(res => {
+        console.log(res);
         this.dialogData = res;
         return res;
       }), catchError(
@@ -96,6 +103,7 @@ export abstract class AbstractService<T> {
     return this.http.delete<boolean>(this.apiUrl + '/' + id)
       .pipe(map(
         res => {
+          console.log(res);
           return res;
         })
         , catchError(
@@ -108,6 +116,7 @@ export abstract class AbstractService<T> {
   saveWithFormData(formData: FormData, options: any): Observable<HttpEvent<T>> {
     return this.http.post<T>(this.apiUrl, formData, options)
       .pipe(map(res => {
+        console.log(res);
         this.dialogData = res;
         return res;
       }), catchError(
@@ -119,6 +128,7 @@ export abstract class AbstractService<T> {
   updateWithFormData(id: number, formData: FormData, options: any): Observable<HttpEvent<T>> {
     return this.http.put<T>(this.apiUrl + '/' + id, formData, options)
       .pipe(map(res => {
+        console.log(res);
         this.dialogData = res;
         return res;
       }),

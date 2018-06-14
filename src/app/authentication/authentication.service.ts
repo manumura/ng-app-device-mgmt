@@ -10,8 +10,7 @@ import {
   TOKEN_NAME, TOKEN_EXPIRY, TOKEN_EXPIRY_VALUE
 } from '../constant/auth.constant';
 
-// Angular 6+
-@Injectable({providedIn: 'root'})
+@Injectable({providedIn: 'root'}) // Angular 6+
 export class AuthenticationService {
 
   private loggedIn = new BehaviorSubject<boolean>(false);
