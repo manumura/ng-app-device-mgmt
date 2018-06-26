@@ -56,36 +56,6 @@ export class LoginComponent implements OnInit {
         });
   }
 
-  error(message: string) {
-    this.alertMessages = [];
-    this.alertMessages.push({ severity: 'error', summary: 'Error', detail: message });
-  }
-
-  info(message: string) {
-    this.alertMessages = [];
-    this.alertMessages.push({ severity: 'info', summary: 'Info', detail: message });
-  }
-
-  errorHandler(e: any): void {
-
-    this.simpleDialogRef = this.dialog.open(SimpleDialogComponent, {
-      disableClose: false,
-    });
-    this.simpleDialogRef.componentInstance.title = 'Error';
-    console.log('Error : ', e);
-    if (e.status === 0) {
-      const messages = new Array();
-      messages.push('Cannot connect to server');
-      this.simpleDialogRef.componentInstance.messages = messages;
-    } else if (e.error.errorMessages === undefined || e.error.errorMessages === null) {
-      const messages = new Array();
-      messages.push('An unexpected error occurred.');
-      this.simpleDialogRef.componentInstance.messages = messages;
-    } else {
-      this.simpleDialogRef.componentInstance.messages = e.error.errorMessages;
-    }
-  }
-
   isLogout(): boolean {
     this.requestProcess = this.route.snapshot.queryParams[LOGOUT_PARAM_NAME];
 
@@ -110,12 +80,22 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  error(message: string) {
+    this.alertMessages = [];
+    this.alertMessages.push({ severity: 'error', summary: 'Error', detail: message });
+  }
+
+  info(message: string) {
+    this.alertMessages = [];
+    this.alertMessages.push({ severity: 'info', summary: 'Info', detail: message });
+  }
+
   // TODO
   test() {
     console.log('Test');
     this.testService.test().subscribe(
       result => {
         console.log(result);
-    });
+      });
   }
 }

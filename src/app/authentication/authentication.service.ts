@@ -25,16 +25,16 @@ export class AuthenticationService {
       .set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', 'Basic ' + btoa(TOKEN_AUTH_USERNAME + ':' + TOKEN_AUTH_PASSWORD));
 
-    return this.http.post<any>(TOKEN_AUTHENTICATION_ENDPOINT, body, { headers: headers })
-      .pipe(map(user => {
-        console.log(user);
+    return this.http.post<any>(TOKEN_AUTHENTICATION_ENDPOINT, body, { headers: headers, withCredentials: true })
+      .pipe(map(result => {
+        console.log(result);
         // login successful if there's a token in the response
-        if (user && user.hasOwnProperty(TOKEN_NAME)) {
+        if (result && result.hasOwnProperty(TOKEN_NAME)) {
           // store user details and token in local storage to keep user logged in
-          localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+          localStorage.setItem(CURRENT_USER, JSON.stringify(result));
           const expiry = new Date();
-          if (user.expires_in) {
-            expiry.setTime(expiry.getTime() + (parseInt(user.expires_in, 10) * 1000));
+          if (result.expires_in) {
+            expiry.setTime(expiry.getTime() + (parseInt(result.expires_in, 10) * 1000));
           } else {
             expiry.setTime(expiry.getTime() + (TOKEN_EXPIRY_VALUE * 1000));
           }
@@ -42,7 +42,7 @@ export class AuthenticationService {
           localStorage.setItem(TOKEN_EXPIRY, expiry.toString());
           this.loggedIn.next(true);
         }
-        return user;
+        return result;
       }));
   }
 

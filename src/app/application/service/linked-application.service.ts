@@ -14,7 +14,7 @@ export class LinkedApplicationService {
 
   constructor(protected http: HttpClient,
     @Inject(APP_CONFIG) private conf: AppConfig) {
-    this.apiUrl = conf.appsApiEndpoint + '/api/apps';
+    this.apiUrl = conf.appsApiEndpoint + '/apps';
   }
 
   findAllLinkedApplications(id: number): Observable<LinkedApplication[]> {

@@ -15,7 +15,7 @@ export class ApplicationService extends AbstractService<Application> {
 
   constructor(protected http: HttpClient,
     @Inject(APP_CONFIG) private conf: AppConfig) {
-    super(http, conf.appsApiEndpoint + '/api/apps');
+    super(http, conf.appsApiEndpoint + '/apps');
   }
 
   getFile(id: number): Observable<Blob> {

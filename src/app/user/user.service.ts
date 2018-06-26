@@ -19,7 +19,7 @@ export class UserService extends AbstractService<User> {
 
   constructor(protected http: HttpClient,
     @Inject(APP_CONFIG) private conf: AppConfig) {
-    super(http, conf.appsApiEndpoint + '/api/users');
+    super(http, conf.appsApiEndpoint + '/users');
   }
 
   get data(): User[] {
