@@ -25,7 +25,7 @@ export abstract class AbstractService<T> {
   findAll(): Observable<T[]> {
     // TODO : Use interceptor to catch errors
     // return this.http.get<T[]>(this.apiUrl);
-    return this.http.get<T[]>(this.apiUrl)
+    return this.http.get<T[]>(this.apiUrl, { withCredentials: true })
       .pipe(map(
         res => {
           console.log(res);
@@ -54,7 +54,7 @@ export abstract class AbstractService<T> {
   //  }
 
   findById(id: number): Observable<T> {
-    return this.http.get<T>(this.apiUrl + '/' + id)
+    return this.http.get<T>(this.apiUrl + '/' + id, { withCredentials: true })
       .pipe(map(res => {
           console.log(res);
           return res;
@@ -65,7 +65,7 @@ export abstract class AbstractService<T> {
   }
 
   update(id: number, entity: T): Observable<T> {
-    return this.http.put<T>(this.apiUrl + '/' + id, entity)
+    return this.http.put<T>(this.apiUrl + '/' + id, entity, { withCredentials: true })
       .pipe(map(res => {
         console.log(res);
         this.dialogData = res;
@@ -79,16 +79,16 @@ export abstract class AbstractService<T> {
   saveNgForm(entity: any): Observable<any> {
     let result: Observable<Object>;
     if (entity['id']) {
-      result = this.http.put<T>(this.apiUrl, entity);
+      result = this.http.put<T>(this.apiUrl, entity, { withCredentials: true });
     } else {
-      result = this.http.post<T>(this.apiUrl, entity);
+      result = this.http.post<T>(this.apiUrl, entity, { withCredentials: true });
     }
     console.log(result);
     return result;
   }
 
   save(entity: T): Observable<T> {
-    return this.http.post<T>(this.apiUrl, entity)
+    return this.http.post<T>(this.apiUrl, entity, { withCredentials: true })
       .pipe(map(res => {
         console.log(res);
         this.dialogData = res;
@@ -100,7 +100,7 @@ export abstract class AbstractService<T> {
   }
 
   deleteById(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.apiUrl + '/' + id)
+    return this.http.delete<boolean>(this.apiUrl + '/' + id, { withCredentials: true })
       .pipe(map(
         res => {
           console.log(res);
@@ -114,7 +114,9 @@ export abstract class AbstractService<T> {
   }
 
   saveWithFormData(formData: FormData, options: any): Observable<HttpEvent<T>> {
-    return this.http.post<T>(this.apiUrl, formData, options)
+    // TODO a tester
+    const requestOptions = Object.assign({}, options, { withCredentials: true })
+    return this.http.post<T>(this.apiUrl, formData, requestOptions)
       .pipe(map(res => {
         console.log(res);
         this.dialogData = res;
@@ -126,7 +128,9 @@ export abstract class AbstractService<T> {
   }
 
   updateWithFormData(id: number, formData: FormData, options: any): Observable<HttpEvent<T>> {
-    return this.http.put<T>(this.apiUrl + '/' + id, formData, options)
+    // TODO a tester
+    const requestOptions = Object.assign({}, options, { withCredentials: true })
+    return this.http.put<T>(this.apiUrl + '/' + id, formData, requestOptions)
       .pipe(map(res => {
         console.log(res);
         this.dialogData = res;

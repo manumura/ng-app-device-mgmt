@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CURRENT_USER } from '../constant/auth.constant';
+import { CURRENT_USER } from '../../constant/auth.constant';
 
 @Injectable()
 export class AuthTokenHeaderInterceptor implements HttpInterceptor {

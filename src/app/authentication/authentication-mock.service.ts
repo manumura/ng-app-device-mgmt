@@ -2,7 +2,7 @@ import {Injectable, Inject} from '@angular/core';
 import {Observable, of} from 'rxjs';
 
 import {AuthenticationService} from './authentication.service';
-import { User } from '../user/user.model';
+import {User} from "./user.model";
 
 @Injectable()
 export class AuthenticationServiceMock extends AuthenticationService {

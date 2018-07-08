@@ -9,9 +9,9 @@
     <mat-icon mat-list-icon>android</mat-icon>
     <span mat-line class="secondary-text"> Go to Applications management </span>
   </mat-list-item>
-  <div *ngIf="isLogged | async as isLogged">
+  <div *ngIf="isLoggedIn$ | async">
     <mat-divider></mat-divider>
-    <mat-list-item (click)="closeNav()" [routerLink]="['login']" [queryParams]="{lq: 'logout'}" *ngIf="isLogged">
+    <mat-list-item (click)="closeNav()" [routerLink]="['login']" [queryParams]="{lq: 'logout'}">
       <a matLine>Logout</a>
       <mat-icon mat-list-icon>exit_to_app</mat-icon>
       <span mat-line class="secondary-text"> Log out of the application </span>

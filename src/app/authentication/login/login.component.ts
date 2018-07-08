@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material';
 import { LOGOUT_PARAM_NAME, LOGOUT_PARAM_VALUE } from '../../constant/auth.constant';
 
-// TODO
+// TODO : remove test
 import { TestService } from './test.service';
 
 @Component({
@@ -27,18 +27,29 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     public dialog: MatDialog,
-    // TODO
+    // TODO : remove test
     private testService: TestService) {
   }
 
   ngOnInit() {
     // reset login status
     if (this.isLogout()) {
-      this.authenticationService.logout();
-      this.info('You have successfully logged out.');
+      this.logout();
+    } else {
+      // Check if there is a logged in user, then send to home page.
+      this.validateUser();
     }
-    // Check if there is a logged in user, then send to home page.
-    this.validateUser();
+  }
+
+  logout() {
+    console.log('log out')
+    this.authenticationService.logout().subscribe(
+      data => {
+        this.info('You have successfully logged out.');
+      },
+      error => {
+        this.error('Error while trying to log out.');
+      });
   }
 
   login() {
@@ -56,6 +67,21 @@ export class LoginComponent implements OnInit {
         });
   }
 
+  validateUser() {
+    // this.authenticationService.refresh();
+    // if (this.authenticationService.isLoggedIn.value) {
+    //   console.log('already logged in')
+    //   this.router.navigate(['/home']);
+    // }
+    this.authenticationService.isLoggedIn$.subscribe(
+      isLoggedIn => {
+        if (isLoggedIn) {
+          this.router.navigate(['/home']);
+        }
+      }
+    );
+  }
+
   isLogout(): boolean {
     this.requestProcess = this.route.snapshot.queryParams[LOGOUT_PARAM_NAME];
 
@@ -69,17 +95,6 @@ export class LoginComponent implements OnInit {
     return (this.requestProcess === LOGOUT_PARAM_VALUE);
   }
 
-  validateUser() {
-    this.authenticationService.refresh();
-    this.authenticationService.isLoggedIn.subscribe(res => {
-      this.isLogged = res;
-    });
-    console.log(this.isLogged);
-    if (this.isLogged) {
-      this.router.navigate(['/home']);
-    }
-  }
-
   error(message: string) {
     this.alertMessages = [];
     this.alertMessages.push({ severity: 'error', summary: 'Error', detail: message });
@@ -90,7 +105,7 @@ export class LoginComponent implements OnInit {
     this.alertMessages.push({ severity: 'info', summary: 'Info', detail: message });
   }
 
-  // TODO
+  // TODO : remove test
   test() {
     console.log('Test');
     this.testService.test().subscribe(

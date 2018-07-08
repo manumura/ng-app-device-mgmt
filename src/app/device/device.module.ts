@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+// import { HttpClientModule } from '@angular/common/http';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -35,7 +35,7 @@ import { DeviceRoutingModule } from './device-routing.module';
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
+    // HttpClientModule,
     // BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,

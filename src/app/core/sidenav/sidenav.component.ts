@@ -10,10 +10,10 @@ import {AuthenticationService} from '../../authentication/authentication.service
 })
 export class SidenavComponent implements OnInit {
 
-  isLogged: Observable<boolean>;
+  isLoggedIn$: Observable<boolean>;
 
   constructor(private sideNavService: SideNavService,
-              private authService: AuthenticationService) {
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -25,7 +25,7 @@ export class SidenavComponent implements OnInit {
   }
 
   checkUser() {
-    this.authService.refresh();
-    this.isLogged = this.authService.isLoggedIn;
+    // this.authService.refresh();
+    this.isLoggedIn$ = this.authenticationService.isLoggedIn$;
   }
 }
