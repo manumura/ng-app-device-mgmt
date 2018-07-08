@@ -5,6 +5,7 @@ import { filter, map, shareReplay, tap } from 'rxjs/operators';
 import {
   CURRENT_USER,
   TOKEN_AUTHENTICATION_ENDPOINT,
+  TOKEN_LOGOUT_ENDPOINT,
   TOKEN_AUTH_PASSWORD,
   TOKEN_AUTH_USERNAME,
   TOKEN_NAME, TOKEN_EXPIRY, TOKEN_EXPIRY_VALUE
@@ -64,9 +65,7 @@ export class AuthenticationService {
   }
 
   logout() : Observable<any> {
-    // TODO : test
-    // return this.http.post('http://localhost:17172/api/v1/logout', null)
-    return this.http.post('http://localhost:17172/test', null)
+    return this.http.post(TOKEN_LOGOUT_ENDPOINT, null, { withCredentials: true })
       .pipe(
         shareReplay(),
         tap(result => {

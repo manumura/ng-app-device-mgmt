@@ -1,4 +1,5 @@
 export const TOKEN_AUTHENTICATION_ENDPOINT =  'http://localhost:17172/api/v1/login';
+export const TOKEN_LOGOUT_ENDPOINT =  'http://localhost:17172/api/v1/logout';
 export const TOKEN_AUTH_USERNAME = 'appdevicemgmtclientid';
 export const TOKEN_AUTH_PASSWORD = 'appdevicemgmt2018';
 export const TOKEN_NAME = 'access_token';
