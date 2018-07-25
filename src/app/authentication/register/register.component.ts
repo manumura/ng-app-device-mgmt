@@ -26,15 +26,12 @@ export class RegisterComponent {
     this.loading = true;
     this.userService.saveNgForm(this.model)
       .subscribe(
-        data => {
-          console.log(data);
-          if (data.status !== 200) {
-            this.success('Registration successful');
-            this.router.navigate(['/login']);
-          } else {
-            this.error('Unable to register the user. Please check with your administrator.');
-            this.loading = false;
-          }
+        user => {
+          console.log(user);
+          this.loading = false;
+          // TODO message
+          this.success('Registration successful');
+          this.router.navigate(['/login'], { queryParams: { lr: 'register' } });
         },
         error => {
           this.error('Unable to register the user. Please check with your administrator.');
@@ -50,11 +47,6 @@ export class RegisterComponent {
   error(message: string) {
     this.alertMessages = [];
     this.alertMessages.push({severity: 'error', summary: 'Error', detail: message});
-  }
-
-  info(message: string) {
-    this.alertMessages = [];
-    this.alertMessages.push({severity: 'info', summary: 'Info', detail: message});
   }
 
 }

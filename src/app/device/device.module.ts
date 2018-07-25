@@ -26,17 +26,15 @@ import { DeviceDeleteComponent } from './device-delete/device-delete.component';
 import { DeviceCreateComponent } from './device-create/device-create.component';
 import { SharedModule} from '../shared/shared.module';
 import { DeviceRoutingModule } from './device-routing.module';
+import {AuthGuard} from "../authentication/auth.guard";
 
 @NgModule({
-  declarations: [
-    DeviceListComponent,
-    DeviceDeleteComponent,
-    DeviceCreateComponent
-  ],
   imports: [
     CommonModule,
-    // HttpClientModule,
+    FormsModule,
+    // HttpClientModule, // need to be declared only once in app.module
     // BrowserAnimationsModule,
+    GrowlModule,
     MatButtonModule,
     MatCardModule,
     MatInputModule,
@@ -44,7 +42,6 @@ import { DeviceRoutingModule } from './device-routing.module';
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
-    FormsModule,
     MatIconModule,
     MatDialogModule,
     MatPaginatorModule,
@@ -53,13 +50,21 @@ import { DeviceRoutingModule } from './device-routing.module';
     MatDividerModule,
     MatSortModule,
     SharedModule,
-    GrowlModule,
     DeviceRoutingModule,
+  ],
+  declarations: [
+    DeviceListComponent,
+    DeviceDeleteComponent,
+    DeviceCreateComponent
   ],
   entryComponents: [
     DeviceDeleteComponent,
     DeviceCreateComponent
   ],
-  providers: [DeviceService, DeviceStatusService]
+  providers: [
+    DeviceService,
+    DeviceStatusService,
+    AuthGuard // Needed for lazy loading
+  ]
 })
 export class DeviceModule { }

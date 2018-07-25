@@ -45,11 +45,14 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
     // TODO : Check if user is already logged in with cookie
-    // http.get<User>('http://localhost:17172/api/v1/login')
+    // http.get<User>('http://localhost:17172/api/v1/session')
     //   .subscribe(user => {
     //     console.log(user);
     //     this.subject.next(user ? user : ANONYMOUS_USER);
     //   });
+
+    // http.get<User>('/api/user')
+    //   .subscribe(user => this.subject.next(user ? user : ANONYMOUS_USER));
   }
 
   login(username:string, password:string ) {

@@ -20,9 +20,9 @@ import {
 } from '@angular/material';
 import {
   MatDatepickerModule,
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerToggle
+  // MatDatepicker,
+  // MatDatepickerInput,
+  // MatDatepickerToggle
 } from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
@@ -63,14 +63,22 @@ import {SharedModule} from '../shared/shared.module';
     MatInputModule,
     MatSelectModule,
     MatMomentDateModule,
-    UserRoutingModule,
     SharedModule,
+    UserRoutingModule,
   ],
-  declarations: [UserListComponent, UserCreateComponent, UserDeleteComponent],
+  declarations: [
+    UserListComponent,
+    UserCreateComponent,
+    UserDeleteComponent
+  ],
   entryComponents: [
-    UserDeleteComponent, UserCreateComponent
+    UserDeleteComponent,
+    UserCreateComponent
   ],
-  providers: [UserService, CountryService, CityService],
-  // bootstrap: [ConfirmationDialogComponent, SimpleDialogComponent, InputFileComponent],
+  providers: [
+    UserService,
+    CountryService,
+    CityService
+  ]
 })
 export class UserModule {}

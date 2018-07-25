@@ -52,21 +52,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  login() {
-    this.loading = true;
-    // get return url from route parameters or default to '/home'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-    this.authenticationService.login(this.model.username, this.model.password)
-      .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          this.error('Invalid username or password.');
-          this.loading = false;
-        });
-  }
-
   validateUser() {
     // this.authenticationService.refresh();
     // if (this.authenticationService.isLoggedIn.value) {
@@ -82,6 +67,21 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  login() {
+    this.loading = true;
+    // get return url from route parameters or default to '/home'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    this.authenticationService.login(this.model.username, this.model.password)
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error('Invalid username or password.');
+          this.loading = false;
+        });
+  }
+
   isLogout(): boolean {
     this.requestProcess = this.route.snapshot.queryParams[LOGOUT_PARAM_NAME];
 
@@ -93,6 +93,11 @@ export class LoginComponent implements OnInit {
     // );
 
     return (this.requestProcess === LOGOUT_PARAM_VALUE);
+  }
+
+  isRegisterSuccess(): boolean {
+    this.requestProcess = this.route.snapshot.queryParams['lr'];
+    return (this.requestProcess === 'register');
   }
 
   error(message: string) {

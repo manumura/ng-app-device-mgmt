@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       first(),
       tap(
         isLoggedIn => {
-          console.log('is already logged in: ', isLoggedIn)
+          console.log('Can activate : is already logged in? ', isLoggedIn)
           if (!isLoggedIn) {
             this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
           }
@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       first(),
       tap(
         isLoggedIn => {
-          console.log('is already logged in: ', isLoggedIn)
+          console.log('Can load : is already logged in? ', isLoggedIn)
           if (!isLoggedIn) {
             this.router.navigate(['/login'], { queryParams: { returnUrl: '' } });
           }

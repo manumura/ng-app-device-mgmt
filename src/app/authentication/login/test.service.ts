@@ -13,7 +13,28 @@ export class TestService {
   }
 
   // TODO
-  test(): Observable<any> {
+  test = (): Observable<any> => {
+
+    const numbers = [1, 2, 3];
+    const newNumbers = [...numbers, 4, 5];
+    console.log(newNumbers);
+
+    const person = {
+      name : 'Manu',
+      age: 37
+    };
+    const newPerson = {
+      ...person,
+      gender: 'M'
+    };
+    console.log(newPerson);
+
+    const doubleNumbers = numbers.map((num, index) => {
+      console.log(index);
+      return num * 2;
+    });
+    console.log(doubleNumbers);
+
     console.log('test');
     return this.http.post<any>('http://localhost:17172/test', 'test')
     // return this.http.get<any>('http://localhost:17172/test')
@@ -23,7 +44,7 @@ export class TestService {
       }));
   }
 
-  errorHandler(e: any): void {
+  errorHandler = (e: any): void => {
     console.log(e);
     return e || 'Error';
   }

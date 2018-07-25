@@ -21,9 +21,9 @@ import {
 } from '@angular/material';
 import {
   MatDatepickerModule,
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerToggle
+  // MatDatepicker,
+  // MatDatepickerInput,
+  // MatDatepickerToggle
 } from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {FileUploadModule} from 'primeng/fileupload';
@@ -68,14 +68,22 @@ import {DeviceTypeService} from '../device/service/device-type.service';
     MatInputModule,
     MatSelectModule,
     MatMomentDateModule,
-    // ApplicationRoutingModule,
     SharedModule,
+    // ApplicationRoutingModule,
   ],
-  declarations: [ApplicationListComponent, ApplicationCreateComponent, ApplicationDeleteComponent],
+  declarations: [
+    ApplicationListComponent,
+    ApplicationCreateComponent,
+    ApplicationDeleteComponent],
   entryComponents: [
-    ApplicationDeleteComponent, ApplicationCreateComponent
+    ApplicationDeleteComponent,
+    ApplicationCreateComponent
   ],
-  providers: [ApplicationService, LinkedApplicationService, DeviceTypeService, ChannelService],
-  // bootstrap: [ConfirmationDialogComponent, SimpleDialogComponent, InputFileComponent],
+  providers: [
+    ApplicationService,
+    LinkedApplicationService,
+    DeviceTypeService,
+    ChannelService
+  ]
 })
 export class ApplicationModule {}
