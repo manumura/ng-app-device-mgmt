@@ -18,7 +18,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DeviceListComponent implements OnInit, AfterViewInit {
   data: Array<Device>;
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<Device> = new MatTableDataSource<Device>();
   displayedColumns = ['timestamp', 'imei', 'status', 'requestBy', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -80,7 +80,8 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
     this.deviceService.findAll().subscribe(result => {
       this.data = result;
       // this.displayStatusText();
-      this.dataSource = new MatTableDataSource(this.data);
+      // this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.data = result;
       this.changeDetectorRefs.detectChanges();
       this.dataSource.paginator = this.paginator;
       this.refreshPaginatorIndex();

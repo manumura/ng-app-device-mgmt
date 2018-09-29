@@ -34,8 +34,8 @@ export class ApplicationListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('filter') filter: ElementRef;
 
-  data: Array<Application>;
-  dataSource: MatTableDataSource<Application> = new MatTableDataSource([]);
+  data: Application[];
+  dataSource: MatTableDataSource<Application> = new MatTableDataSource<Application>([]);
 
   constructor(private router: Router,
     private applicationService: ApplicationService,
@@ -51,6 +51,7 @@ export class ApplicationListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // this.dataSource.sort = this.sort;
   }
 
   getAllApplications() {
@@ -152,7 +153,8 @@ export class ApplicationListComponent implements OnInit, AfterViewInit {
     this.applicationService.findAll().subscribe(result => {
       console.log('Data refreshed');
       this.data = result;
-      this.dataSource = new MatTableDataSource(this.data);
+      // this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.data = result;
 
       this.dataSource.filterPredicate =
         (app: Application, appFilter: string) => this.filterPredicate(app, appFilter);

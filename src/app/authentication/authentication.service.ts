@@ -23,6 +23,7 @@ export class AuthenticationService {
   // private user = new BehaviorSubject<User>(undefined);
   private isLoggedIn = new BehaviorSubject<boolean>(false);
 
+  // TODO : unsubscribe to isLoggedIn$ whenever we subscribe
   isLoggedIn$: Observable<boolean> = this.isLoggedIn.asObservable();
 
   // user$: Observable<User> = this.user.asObservable()
@@ -45,14 +46,15 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
     // TODO : Check if user is already logged in with cookie
-    // http.get<User>('http://localhost:17172/api/v1/session')
-    //   .subscribe(user => {
-    //     console.log(user);
-    //     this.subject.next(user ? user : ANONYMOUS_USER);
-    //   });
-
-    // http.get<User>('/api/user')
-    //   .subscribe(user => this.subject.next(user ? user : ANONYMOUS_USER));
+    http.get<boolean>('http://localhost:17172/api/v1/session', { withCredentials: true })
+      .subscribe(isLoggedIn => {
+        console.log('Is user already logged in :', isLoggedIn);
+        this.isLoggedIn.next(isLoggedIn);
+        // this.user.next(user ? user : ANONYMOUS_USER);
+      }, error => {
+        console.log('Error while checking user already logged in :', error.message);
+        this.isLoggedIn.next(false);
+      });
   }
 
   login(username:string, password:string ) {
